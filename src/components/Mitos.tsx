@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { mitos } from "@/conteudo";
 import { TituloAnimado } from "./TituloAnimado";
-import { Etiqueta, Foto } from "./ui";
+import { Etiqueta } from "./ui";
 
 function CartaoMito({ mito, resposta, n }: { mito: string; resposta: string[]; n: number }) {
   const [aberto, setAberto] = useState(false);
@@ -79,16 +79,6 @@ export function Mitos() {
               Elas aparecem antes da primeira sessão e, às vezes, atrasam a decisão de procurar ajuda. Aqui
               está o que eu costumo responder.
             </p>
-            <div className="mt-8 w-[150px] overflow-hidden rounded-full lg:mt-10 lg:w-[220px]">
-              <div className="aspect-[3/4]">
-                <Foto
-                  nome="franciny-ruy-risada"
-                  alt="Franciny Ruy, psicóloga, dando risada"
-                  sizes="(min-width: 1024px) 220px, 150px"
-                  posicao="55% 22%"
-                />
-              </div>
-            </div>
           </div>
 
           {/* RASCUNHO: respostas aos mitos para a Franciny aprovar (src/conteudo.ts) */}

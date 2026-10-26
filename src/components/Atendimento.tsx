@@ -42,7 +42,7 @@ export function Atendimento() {
     <section id="atendimento" className="faixa-escura relative overflow-hidden bg-marrom py-20 text-papel md:py-28">
       <VeiosMadeira />
       <div className="relative mx-auto max-w-[1240px] px-4 md:px-8">
-        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+        <div>
           <div className="max-w-[640px]">
             <Etiqueta tom="escuro">Atendimento</Etiqueta>
             <TituloAnimado
@@ -57,16 +57,6 @@ export function Atendimento() {
               </a>
               .
             </p>
-          </div>
-          <div className="w-[150px] shrink-0 self-start overflow-hidden rounded-full ring-1 ring-papel/20 md:w-[190px] md:self-end">
-            <div className="aspect-[3/4]">
-              <Foto
-                nome="franciny-ruy-atendimento"
-                alt="Franciny Ruy, psicóloga em Araçatuba, com o cabelo preso e expressão serena"
-                sizes="(min-width: 768px) 190px, 150px"
-                posicao="50% 20%"
-              />
-            </div>
           </div>
         </div>
 
@@ -102,7 +92,17 @@ export function Atendimento() {
           ))}
         </ul>
 
-        <div className="mt-6 md:mt-8">
+        {/* "aqui é onde ela te recebe": a foto fica junto do mapa, e não solta ao lado do título.
+            Celular: foto em cima, mapa embaixo. Desktop: foto à esquerda, mapa à direita, mesma altura. */}
+        <div className="mt-6 grid gap-4 md:mt-8 md:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] md:gap-6">
+          <div className="aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-linho md:aspect-auto">
+            <Foto
+              nome="franciny-ruy-atendimento"
+              alt="Franciny Ruy, psicóloga em Araçatuba, com o cabelo preso e expressão serena"
+              sizes="(min-width: 768px) 40vw, 92vw"
+              posicao="50% 22%"
+            />
+          </div>
           <Mapa />
         </div>
       </div>

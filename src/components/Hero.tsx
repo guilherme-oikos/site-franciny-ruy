@@ -2,7 +2,6 @@ import { linkWhatsApp, site } from "@/site.config";
 import { temas } from "@/conteudo";
 import { BotaoSeta, Foto } from "./ui";
 import { FiosHero } from "./FiosHero";
-import { PausaTemas } from "./PausaTemas";
 import { VeiosMadeira } from "./VeiosMadeira";
 
 // celular: a foto aparece com ~260px; "220px" faz o navegador escolher o arquivo de 720px em vez do de 960px
@@ -127,7 +126,6 @@ export function FaixaTemas() {
             ))}
           </ul>
         </div>
-        <PausaTemas />
       </div>
     </section>
   );

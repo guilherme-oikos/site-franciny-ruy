@@ -37,7 +37,10 @@ export function FioRolagem() {
       if (!svg || !inicio || !fim || !conteudo) return;
 
       const largura = document.documentElement.clientWidth;
-      const altura = document.documentElement.scrollHeight;
+      // altura até o fim do rodapé (e não scrollHeight): o próprio SVG entra no scrollHeight, então
+      // quando a página encolhia ele mantinha a altura antiga e sobrava um vão marrom no fim do site
+      const rodape = document.querySelector("body > footer");
+      const altura = Math.ceil((rodape?.getBoundingClientRect().bottom ?? 0) + scrollY);
       const celular = largura < 1024;
       svg.setAttribute("width", String(largura));
       svg.setAttribute("height", String(altura));

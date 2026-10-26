@@ -161,25 +161,15 @@ body {
   display: flex;
   width: max-content;
 }
-/* Desliza devagar e para: no hover, no botão de pausa (PausaTemas.tsx) e fora da tela.
-   Com movimento reduzido fica parada e o botão some. */
+/* Desliza devagar e para no hover. Com movimento reduzido fica parada.
+   (o botão de pausa saiu a pedido da OIKOS em 26/10/2026) */
 @media (prefers-reduced-motion: no-preference) {
   .trilho {
     animation: desliza 70s linear infinite;
   }
-  .faixa-arcos:hover .trilho,
-  .faixa-arcos[data-pausado] .trilho,
-  .faixa-arcos[data-fora] .trilho {
+  .faixa-arcos:hover .trilho {
     animation-play-state: paused;
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pausa-temas {
-    display: none;
-  }
-}
-html:not(.js) .pausa-temas {
-  display: none;
 }
 @keyframes desliza {
   to {
