@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // site estático: `npm run build` gera a pasta `out/`, pronta para a Vercel ou qualquer hospedagem
+  output: "export",
+  images: { unoptimized: true },
+  poweredByHeader: false,
   turbopack: {
     rules: {
       "*.css": {

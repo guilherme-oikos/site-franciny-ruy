@@ -1,26 +1,467 @@
 @import "tailwindcss";
 
+/* Tokens da identidade Franciny Ruy (copiados de IDENTIDADE VISUAL/tokens.css).
+   As fontes vêm do next/font, hospedadas no próprio site, em vez do @import do Google Fonts. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --linho: #f3eadc;
+  --papel: #fbf6ec;
+  --marrom: #3b2a20;
+  --marrom-suave: #6a5444;
+  --terracota: #b4552f;
+  --terracota-escura: #9a4423;
+  --verde-mata: #2f5d3a;
+  --verde-folha: #4f7f45;
+  --taupe: #8c7561;
+  --sobre-terracota: var(--papel);
+  --sobre-verde: var(--papel);
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+  --space-5: 64px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --altura-topo: 72px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-linho: var(--linho);
+  --color-papel: var(--papel);
+  --color-marrom: var(--marrom);
+  --color-marrom-suave: var(--marrom-suave);
+  --color-terracota: var(--terracota);
+  --color-terracota-escura: var(--terracota-escura);
+  --color-verde-mata: var(--verde-mata);
+  --color-verde-folha: var(--verde-folha);
+  --color-taupe: var(--taupe);
+
+  --font-display: var(--font-bricolage), "Trebuchet MS", system-ui, sans-serif;
+  --font-texto: var(--font-figtree), system-ui, "Segoe UI", sans-serif;
+  --font-assinatura: var(--font-dancing), "Segoe Script", cursive;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  background: var(--marrom);
+  scroll-padding-top: calc(var(--altura-topo) + 16px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--linho);
+  color: var(--marrom);
+  font-family: var(--font-texto);
+  font-size: 18px;
+  line-height: 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--terracota);
+  color: var(--papel);
+}
+
+:focus-visible {
+  outline: 3px solid var(--terracota-escura);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.faixa-escura :focus-visible,
+.faixa-terracota :focus-visible,
+.faixa-verde :focus-visible {
+  outline-color: var(--papel);
+}
+
+/* Estilos de texto do guia */
+.titulo-1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 44px);
+  line-height: 1.09;
+  font-weight: 800;
+}
+.titulo-2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.6vw, 52px);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.legenda {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+.assinatura {
+  font-family: var(--font-assinatura);
+  font-weight: 600;
+}
+
+/* Destaque dentro do título: Bricolage 300 ao lado do trecho em 700 */
+.peso-leve {
+  font-weight: 300;
+}
+
+/* Títulos que entram palavra a palavra, subindo pouco (TituloAnimado.tsx). No máximo 8 passos
+   de 40ms: o título inteiro está na tela em menos de 0,9s. Sem JS, aparece direto.
+   Com movimento reduzido, só um esmaecer curto, sem deslocamento. */
+.palavra {
+  display: inline-block;
+  white-space: nowrap;
+}
+.js .titulo-anima:not(.visivel) .palavra {
+  opacity: 0;
+}
+.js .titulo-anima.visivel .palavra {
+  animation: surge 0.3s ease-out both;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .titulo-anima.visivel .palavra {
+    animation: palavra-sobe 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i) * 40ms);
+  }
+  /* hero: entra no carregamento, só com CSS. Curto, para o botão estar pronto em ~0,7s. */
+  .hero-entra {
+    animation: palavra-sobe 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--atraso, 0ms);
+  }
+}
+@keyframes palavra-sobe {
+  from {
+    opacity: 0;
+    transform: translateY(0.25em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes surge {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Faixa de arcos deslizando devagar */
+.trilho {
+  display: flex;
+  width: max-content;
+}
+/* Desliza devagar e para: no hover, no botão de pausa (PausaTemas.tsx) e fora da tela.
+   Com movimento reduzido fica parada e o botão some. */
+@media (prefers-reduced-motion: no-preference) {
+  .trilho {
+    animation: desliza 70s linear infinite;
+  }
+  .faixa-arcos:hover .trilho,
+  .faixa-arcos[data-pausado] .trilho,
+  .faixa-arcos[data-fora] .trilho {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pausa-temas {
+    display: none;
+  }
+}
+html:not(.js) .pausa-temas {
+  display: none;
+}
+@keyframes desliza {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Menu do celular (Topo.tsx): ao abrir, desce 6px e aparece em 200ms; fecha na hora.
+   Com movimento reduzido, só aparece, sem deslocamento. */
+#menu-celular:not([hidden]) {
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@starting-style {
+  #menu-celular:not([hidden]) {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @starting-style {
+    #menu-celular:not([hidden]) {
+      transform: none;
+    }
+  }
+}
+
+/* Moldura dos fios no hero (FiosHero.tsx): desenham uma vez no carregamento, só com CSS,
+   junto com a entrada do hero. Prontos em ~1,3s. Sem JS ou com movimento reduzido, já aparecem prontos. */
+@media (prefers-reduced-motion: no-preference) {
+  .fios-hero .fio {
+    stroke-dasharray: 1;
+    animation: fio-desenha 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.1s + var(--i) * 90ms);
+  }
+  .fios-hero .ponta {
+    animation: surge 0.3s ease-out both;
+    animation-delay: 1s;
+  }
+}
+@keyframes fio-desenha {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Linha da rolagem (FioRolagem.tsx). Fica acima do fundo das faixas e abaixo do conteúdo:
+   os filhos diretos das seções sobem para z-index 2 (menos os decorativos e o texto só para leitor de tela). */
+main > section > :not([aria-hidden]):not(.sr-only),
+body > footer > :not([aria-hidden]) {
+  position: relative;
+  z-index: 2;
+}
+.fio-guia {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-dasharray: 2 7;
+  opacity: 0.4;
+}
+.fio-traco {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.fio-ponto {
+  fill: var(--papel);
+  stroke: var(--terracota);
+  stroke-width: 2;
+}
+/* Chegada do fio no botão do fechamento: o círculo da seta cresce de leve e volta, uma vez só.
+   Com movimento reduzido, só troca de cor por um instante (terracota, papel, terracota). */
+#fim-do-fio.fio-chegou > span:last-child {
+  animation: chegada-cor 0.6s ease-out;
+}
+@media (prefers-reduced-motion: no-preference) {
+  #fim-do-fio.fio-chegou > span:last-child {
+    animation: chegada 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+@keyframes chegada {
+  40% {
+    transform: scale(1.22);
+  }
+}
+@keyframes chegada-cor {
+  40% {
+    background-color: var(--papel);
+    color: var(--terracota);
+    box-shadow: inset 0 0 0 2px var(--terracota);
+  }
+}
+
+/* celular: mais fina e discreta, porque corre no respiro de 16px ao lado do texto */
+@media (max-width: 1023px) {
+  .fio-traco {
+    stroke-width: 1.5;
+  }
+  .fio-guia {
+    opacity: 0.28;
+  }
+  .fio-ponto {
+    stroke-width: 1.5;
+  }
+}
+
+/* Balões com barra de arrastar (Baloes.tsx). Sem JS: desenho completo, sem barra, ideias em lista. */
+html:not(.js) .desembaraca [data-m] {
+  opacity: 1 !important;
+  stroke-dashoffset: 0 !important;
+}
+html:not(.js) .desembaraca > svg {
+  display: none;
+}
+html:not(.js) .desembaraca-controle {
+  display: none;
+}
+/* Com JS: as três ideias à mostra; a ativa ganha fundo linho e título em marrom,
+   as outras ficam com título em marrom-suave (5,9:1 sobre papel) e a bolinha mais apagada. */
+.js .desembaraca-ideias > li[data-ativa] {
+  background: var(--linho);
+}
+.js .desembaraca-ideias > li:not([data-ativa]) h3 {
+  color: var(--marrom-suave);
+}
+.js .desembaraca-ideias > li:not([data-ativa]) .bolinha {
+  opacity: 0.45;
+}
+.js .desembaraca-ideias > li:not([data-ativa]):hover {
+  background: color-mix(in srgb, var(--linho) 50%, transparent);
+}
+html:not(.js) .desembaraca-ideias button {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* ao tocar num atalho, o fio se desenha; arrastando, segue o dedo sem atraso */
+  .desembaraca:not([data-arrastando]) [data-m] {
+    transition:
+      stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease;
+  }
+  .desembaraca-ideias > li,
+  .desembaraca-ideias h3,
+  .desembaraca-ideias .bolinha {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      opacity 0.3s ease;
+  }
+}
+
+/* Resposta dos mitos (Mitos.tsx): abre de 0fr para 1fr em 0,35s e fecha em 0,22s.
+   Com movimento reduzido, abre e fecha na hora. */
+.resposta-mito {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.resposta-mito[data-aberta] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .resposta-mito {
+    transition:
+      grid-template-rows 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.22s ease;
+  }
+  .resposta-mito[data-aberta] {
+    transition-duration: 0.35s;
+  }
+}
+
+/* Folha de duas curvas ao lado da resposta dos mitos (Mitos.tsx). Terracota, uma cor de folhagem
+   no site todo. Desenha ao abrir; com movimento reduzido ou sem JS, aparece pronta. */
+.folha-resposta path {
+  fill: none;
+  stroke: var(--terracota);
+  stroke-width: 11;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .folha-resposta:not([data-aberta]) path {
+    stroke-dashoffset: 1;
+  }
+  .js .folha-resposta[data-aberta] path {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  .js .folha-resposta[data-aberta] path + path {
+    transition-delay: 0.45s;
+  }
+}
+
+/* Balões "em ordem": halo que se expande e some em volta de cada bolinha, em sequência, uma vez.
+   Com movimento reduzido não há halo; o rótulo que muda já confirma o estado. */
+.desembaraca .acende {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .desembaraca[data-em-ordem] .acende {
+    animation: acende 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i) * 150ms + 0.2s);
+  }
+}
+@keyframes acende {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Barra: o input fica transparente sobre o trilho desenhado; só a bolinha aparece. */
+.arraste {
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: pan-y;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.arraste:active {
+  cursor: grabbing;
+}
+.arraste::-webkit-slider-runnable-track {
+  height: 44px;
+  background: transparent;
+}
+.arraste::-moz-range-track {
+  height: 44px;
+  background: transparent;
+}
+.arraste::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-top: 6px;
+  border: 4px solid var(--papel);
+  border-radius: 999px;
+  background: var(--terracota);
+  outline: 1px solid color-mix(in srgb, var(--marrom) 25%, transparent);
+}
+.arraste::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 4px solid var(--papel);
+  border-radius: 999px;
+  background: var(--terracota);
+  outline: 1px solid color-mix(in srgb, var(--marrom) 25%, transparent);
+}
+.arraste:focus-visible {
+  outline: none;
+}
+.arraste:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--terracota-escura);
+  outline-offset: 2px;
+}
+.arraste:focus-visible::-moz-range-thumb {
+  outline: 3px solid var(--terracota-escura);
+  outline-offset: 2px;
+}
+
+/* Lista de dúvidas: marcador do details */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .sinal-mais {
+  transform: rotate(45deg);
 }

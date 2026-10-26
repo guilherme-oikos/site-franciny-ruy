@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site Franciny Ruy, Psicóloga
 
-## Getting Started
+Página única em Next.js (App Router) com exportação estática e Tailwind CSS.
+`npm run build` gera a pasta `out/`, pronta para a Vercel ou qualquer hospedagem estática.
 
-First, run the development server:
+## Rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # gera out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Onde trocar cada coisa
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| O quê | Arquivo |
+|---|---|
+| Domínio, endereço, CEP, coordenadas, WhatsApp, e-mail, Instagram, horário, convênio | `src/site.config.ts` |
+| Textos do Sobre, mitos, passos, Atendo e Não atendo, perguntas frequentes | `src/conteudo.ts` |
+| Título e descrição da página (SEO) | `src/app/layout.tsx` |
+| Dados estruturados (JSON-LD) | `src/components/DadosEstruturados.tsx` (lê os dois arquivos acima) |
+| Cores, raios e animações | `src/app/globals.css` (tokens copiados da identidade) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tudo marcado com `PENDENTE` ou `RASCUNHO` no código precisa de confirmação antes de publicar:
 
-## Learn More
+```bash
+grep -rn "PENDENTE\|RASCUNHO" src
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Imagens
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `scripts/imagens.mjs` gera as fotos em WebP (480, 720 e 960 px) e os balões, a partir das pastas `FOTOS` e `IDENTIDADE VISUAL` do cliente. Para trocar ou acrescentar uma foto (por exemplo, do consultório), ponha o arquivo em `FOTOS`, inclua no `mapa` do script e rode `node scripts/imagens.mjs`.
+- `scripts/og-e-icones.mjs` gera a imagem de compartilhamento (`public/og.jpg`) e os ícones. Precisa de internet só para as fontes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Conferência
 
-## Deploy on Vercel
+```bash
+npm run build
+node scripts/capturas.mjs   # capturas em capturas/, desktop e celular, com e sem movimento reduzido
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Se o Playwright não encontrar o navegador, rode `npx playwright install chromium` ou aponte `CHROME_PATH` para um `chrome.exe`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Publicar na Vercel
+
+1. Suba esta pasta para um repositório no GitHub.
+2. Na Vercel, importe o repositório. Ela reconhece o Next.js e publica a exportação estática.
+3. Em Settings > Domains, ligue o domínio e troque `url` em `src/site.config.ts` pelo endereço final.
+
+## Escolhas
+
+- Fontes pelo `next/font`: ficam hospedadas no próprio site, com `display: swap`, sem pedido ao Google.
+- O mapa do Google só carrega quando a pessoa clica em "Ver o mapa aqui". Não há rastreador de terceiros.
+- Toda a animação é CSS, sem biblioteca: títulos entrando palavra a palavra, fios da moldura do hero, faixa de temas (com botão de pausa), abertura dos mitos e menu. Com `prefers-reduced-motion`, fica só o essencial, sem deslocamento.
+- Os balões (Como funciona) usam uma barra de arrastar com máscara SVG sobre o PNG original, que nunca é recolorido. O desenho só é baixado quando a seção chega perto da tela.
+- A linha que acompanha a rolagem (`FioRolagem.tsx`) nasce do fio terracota do hero e termina no botão do fechamento.
+- Os veios de madeira do fundo são um SVG estático gerado por `node scripts/veios.mjs`.
+- A schema.org não tem tipo "Psicólogo"; o negócio usa `MedicalBusiness` com `additionalType` da Wikidata (psicólogo, Q212980; psicoterapia, Q183257). `Psychiatric` diria que ela é psiquiatra.
