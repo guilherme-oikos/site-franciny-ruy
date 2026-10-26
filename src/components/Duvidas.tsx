@@ -1,7 +1,7 @@
 import { linkWhatsApp } from "@/site.config";
 import { duvidas } from "@/conteudo";
 import { TituloAnimado } from "./TituloAnimado";
-import { Etiqueta, Folha, Foto } from "./ui";
+import { Etiqueta, Folha } from "./ui";
 
 // Perguntas frequentes em <details>: abre e fecha sem JS e o texto fica no HTML.
 // O mesmo conteúdo alimenta o JSON-LD FAQPage (src/components/DadosEstruturados.tsx).
@@ -16,19 +16,9 @@ export function Duvidas() {
             className="titulo-2 mt-5"
             partes={[{ texto: "Perguntas comuns antes da " }, { texto: "primeira sessão", leve: true }]}
           />
-          <div className="mt-8 flex items-center gap-5">
-            <div className="w-[96px] shrink-0 overflow-hidden rounded-full md:w-[112px]">
-              <div className="aspect-[3/4]">
-                <Foto
-                  nome="franciny-ruy-retrato"
-                  alt="Retrato de Franciny Ruy, psicóloga, com expressão tranquila"
-                  sizes="112px"
-                  posicao="50% 18%"
-                />
-              </div>
-            </div>
+          <div className="mt-6">
             {/* sem botão aqui: o convite com o botão vem logo depois, no fechamento do rodapé */}
-            <p className="max-w-[26ch] text-[17px] leading-7 text-marrom-suave">
+            <p className="max-w-[30ch] text-[17px] leading-7 text-marrom-suave">
               Ficou alguma dúvida que não está aqui?{" "}
               <a
                 href={linkWhatsApp()}

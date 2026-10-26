@@ -2,7 +2,7 @@ import { linkWhatsApp, site } from "@/site.config";
 import { VeiosMadeira } from "./VeiosMadeira";
 import { Mapa } from "./Mapa";
 import { TituloAnimado } from "./TituloAnimado";
-import { Etiqueta, Foto, Seta } from "./ui";
+import { Etiqueta, Folha, Foto, Seta } from "./ui";
 
 type Linha = {
   titulo: string;
@@ -95,14 +95,29 @@ export function Atendimento() {
         {/* "aqui é onde ela te recebe": a foto fica junto do mapa, e não solta ao lado do título.
             Celular: foto em cima, mapa embaixo. Desktop: foto à esquerda, mapa à direita, mesma altura. */}
         <div className="mt-6 grid gap-4 md:mt-8 md:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] md:gap-6">
-          <div className="aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-linho md:aspect-auto">
-            <Foto
-              nome="franciny-ruy-atendimento"
-              alt="Franciny Ruy, psicóloga em Araçatuba, com o cabelo preso e expressão serena"
-              sizes="(min-width: 768px) 40vw, 92vw"
-              posicao="50% 22%"
+          {/* moldura: um quadro na parede do consultório. Passe-partout em papel, a foto recuada dentro,
+              uma folha de duas curvas em terracota saindo por trás do canto e a legenda no rodapé do quadro.
+              Leve inclinação só no desktop (no celular fica reto, alinhado ao mapa). */}
+          <figure className="relative md:-rotate-[1.5deg]">
+            <Folha
+              cor="var(--terracota)"
+              className="pointer-events-none absolute -top-5 -right-3 z-0 w-14 rotate-[28deg] md:-top-7 md:-right-5 md:w-20"
             />
-          </div>
+            <div className="relative z-[1] flex h-full flex-col rounded-[var(--radius-lg)] bg-papel p-2.5 md:p-3">
+              <div className="aspect-[4/3] overflow-hidden rounded-[var(--radius-md)] bg-linho md:aspect-auto md:flex-1">
+                <Foto
+                  nome="franciny-ruy-atendimento"
+                  alt="Franciny Ruy, psicóloga em Araçatuba, com o cabelo preso e expressão serena"
+                  sizes="(min-width: 768px) 40vw, 92vw"
+                  posicao="50% 22%"
+                />
+              </div>
+              <figcaption className="flex items-center justify-between gap-3 px-2 pt-2.5 pb-0.5 text-[14px] leading-5 font-medium text-marrom-suave">
+                <span className="font-semibold text-marrom">Franciny Ruy</span>
+                <span>Araçatuba e online</span>
+              </figcaption>
+            </div>
+          </figure>
           <Mapa />
         </div>
       </div>
