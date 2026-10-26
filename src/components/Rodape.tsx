@@ -83,7 +83,23 @@ export function Rodape() {
           <p>
             © {ano} {site.nome}. Psicóloga - {site.crp}.
           </p>
-          <p>Site feito pela OIKOS Inteligência Digital</p>
+          {/* crédito discreto: o link leva ao Instagram da OIKOS (área de toque de 44px, visual pequeno) */}
+          <p className="flex items-center gap-1.5">
+            Site feito pela OIKOS | Posicionamento Digital
+            <a
+              href="https://www.instagram.com/guilherme.oikos/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram da OIKOS, @guilherme.oikos"
+              className="-my-3 -ml-2.5 inline-grid size-11 place-items-center rounded-full text-papel/75 transition-colors hover:text-papel"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+          </p>
         </div>
       </div>
     </footer>
