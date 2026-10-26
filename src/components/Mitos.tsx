@@ -76,8 +76,7 @@ export function Mitos() {
               partes={[{ texto: "Três ideias sobre terapia " }, { texto: "que eu escuto muito", leve: true }]}
             />
             <p className="mt-5 max-w-[34ch] text-[18px] leading-7">
-              Elas aparecem antes da primeira sessão e, às vezes, atrasam a decisão de procurar ajuda. Aqui
-              está o que eu costumo responder.
+              Já ouvi cada uma delas de gente que, depois de algumas sessões, riu de ter pensado assim.
             </p>
           </div>
 

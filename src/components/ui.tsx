@@ -2,15 +2,26 @@ import type { ReactNode } from "react";
 
 type Tom = "claro" | "escuro";
 
-// Etiqueta pequena com ponto que abre cada seção ("• Sobre")
+// Nome da seção, aberto por um fio curto: um nó pequeno que se desfaz numa linha reta até a bolinha.
+// É a moldura do hero (emaranhado que vira ordem) em miniatura. Linha desenhada, não o arquivo dos balões.
 export function Etiqueta({ children, tom = "claro" }: { children: ReactNode; tom?: Tom }) {
+  const claro = tom === "claro";
   return (
     <p
-      className={`legenda inline-flex items-center gap-2 rounded-full px-3 py-1 ${
-        tom === "claro" ? "bg-papel text-marrom ring-1 ring-marrom/10" : "bg-papel text-marrom"
+      className={`inline-flex items-center gap-3 text-[13px] leading-5 font-semibold tracking-[0.14em] uppercase ${
+        claro ? "text-marrom" : "text-papel"
       }`}
     >
-      <span aria-hidden className="size-1.5 rounded-full bg-terracota-escura" />
+      <svg viewBox="0 0 44 12" fill="none" aria-hidden className="h-3 w-11 shrink-0 overflow-visible">
+        <path
+          d="M1 9.5C5 9.5 11 7 11 3.5 11 1 7.5 1 7.5 4 7.5 7 12 6 16 6L37 6"
+          stroke={claro ? "var(--terracota)" : "var(--papel)"}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="40.5" cy="6" r="2" fill={claro ? "var(--terracota)" : "var(--papel)"} />
+      </svg>
       {children}
     </p>
   );
