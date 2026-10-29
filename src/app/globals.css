@@ -116,26 +116,8 @@ body {
   font-weight: 300;
 }
 
-/* Títulos que entram palavra a palavra, subindo pouco (TituloAnimado.tsx). No máximo 8 passos
-   de 120ms, cada palavra em 1s: o título inteiro está na tela em menos de 2s. Sem JS, aparece direto.
-   Com movimento reduzido (muito comum no celular: modo economia de bateria ou "remover animações"),
-   as palavras ainda surgem uma a uma, só esmaecendo, sem deslocamento. */
-.palavra {
-  display: inline-block;
-  white-space: nowrap;
-}
-.js .titulo-anima:not(.visivel) .palavra {
-  opacity: 0;
-}
-.js .titulo-anima.visivel .palavra {
-  animation: surge 0.9s ease-out both;
-  animation-delay: calc(var(--i) * 120ms);
-}
+/* Os títulos das seções ficam parados (sem animação palavra a palavra, retirada em 29/10/2026). */
 @media (prefers-reduced-motion: no-preference) {
-  .js .titulo-anima.visivel .palavra {
-    animation: palavra-sobe 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: calc(var(--i) * 120ms);
-  }
   /* hero: entra no carregamento, só com CSS. Curto, para o botão estar pronto em ~0,7s. */
   .hero-entra {
     animation: palavra-sobe 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
