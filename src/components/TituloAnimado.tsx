@@ -26,18 +26,31 @@ export function TituloAnimado({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        // também libera o título que já ficou para trás (ex.: quem chega por um link do menu)
-        if (e.isIntersecting || e.boundingClientRect.top < 0) {
-          el.classList.add("visivel");
-          obs.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px 10% 0px" },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    // Dispara pela posição do título na tela, a cada rolagem. O IntersectionObserver antigo, com margem
+    // para fora da tela, soltava a animação antes de o título aparecer e falhava em seções no iPhone.
+    // O título que já ficou para trás (ex.: link do menu) também é liberado (top menor que o limite).
+    let agendado = false;
+    const checa = () => {
+      agendado = false;
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+        el.classList.add("visivel");
+        window.removeEventListener("scroll", agenda);
+        window.removeEventListener("resize", agenda);
+      }
+    };
+    const agenda = () => {
+      if (!agendado) {
+        agendado = true;
+        requestAnimationFrame(checa);
+      }
+    };
+    window.addEventListener("scroll", agenda, { passive: true });
+    window.addEventListener("resize", agenda);
+    checa();
+    return () => {
+      window.removeEventListener("scroll", agenda);
+      window.removeEventListener("resize", agenda);
+    };
   }, []);
 
   const completo = partes.map((p) => p.texto).join("");
