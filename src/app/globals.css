@@ -118,7 +118,8 @@ body {
 
 /* Títulos que entram palavra a palavra, subindo pouco (TituloAnimado.tsx). No máximo 8 passos
    de 40ms: o título inteiro está na tela em menos de 0,9s. Sem JS, aparece direto.
-   Com movimento reduzido, só um esmaecer curto, sem deslocamento. */
+   Com movimento reduzido (muito comum no celular: modo economia de bateria ou "remover animações"),
+   as palavras ainda surgem uma a uma, só esmaecendo, sem deslocamento. */
 .palavra {
   display: inline-block;
   white-space: nowrap;
@@ -127,7 +128,8 @@ body {
   opacity: 0;
 }
 .js .titulo-anima.visivel .palavra {
-  animation: surge 0.3s ease-out both;
+  animation: surge 0.5s ease-out both;
+  animation-delay: calc(var(--i) * 70ms);
 }
 @media (prefers-reduced-motion: no-preference) {
   .js .titulo-anima.visivel .palavra {
