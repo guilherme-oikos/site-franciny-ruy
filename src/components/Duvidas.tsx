@@ -13,6 +13,7 @@ export function Duvidas() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Etiqueta>Dúvidas</Etiqueta>
           <TituloAnimado
+            animado={false}
             className="titulo-2 mt-5"
             partes={[{ texto: "Perguntas comuns antes da " }, { texto: "primeira sessão", leve: true }]}
           />
