@@ -17,20 +17,20 @@ export function ComoFunciona() {
             <TituloAnimado
               className="titulo-2 mt-5"
               partes={[
-                { texto: "Como a TCC trabalha a ansiedade e " },
-                { texto: "os padrões de pensamento", leve: true },
+                { texto: "Como a TCC trabalha os padrões de " },
+                { texto: "pensamentos, as emoções e os comportamentos", leve: true },
               ]}
             />
           </div>
           <div className="space-y-4 text-[18px] leading-[30px]">
             <p>
-              A TCC, Terapia Cognitivo Comportamental, parte de uma ideia simples: o jeito como a gente
-              interpreta uma situação influencia o que sente e o que faz.
+              A TCC parte de uma ideia simples: o jeito como nós interpretamos uma situação influencia o que
+              sentimos e como reagimos.
             </p>
             <p className="text-marrom-suave">
-              Na terapia, a gente identifica esses pensamentos, olha se eles fazem sentido e procura formas
-              mais úteis de responder. É assim que dá para entender por que a ansiedade cresce até virar crise,
-              e o que fazer antes disso.
+              Na terapia, nós identificamos esses pensamentos, procuramos o sentido e formas mais assertivas de
+              reagir. É assim que dá para entender, por exemplo, por que a ansiedade cresce até virar uma crise,
+              nos possibilitando saber como agir antes para tentar evitar.
             </p>
           </div>
         </div>
@@ -45,7 +45,7 @@ export function ComoFunciona() {
               Com quem eu <span className="peso-leve">trabalho</span>
             </h3>
             <p className="mt-4 max-w-[34ch] text-[17px] leading-7 text-papel/85 md:mt-5 md:text-[18px]">
-              Adultos, a partir de 18 anos, no consultório em Araçatuba ou online. Talvez você se reconheça em
+              Jovens adultos, adultos e idosos, no consultório em Araçatuba ou online. Talvez você se reconheça em
               alguma destas situações:
             </p>
           </div>

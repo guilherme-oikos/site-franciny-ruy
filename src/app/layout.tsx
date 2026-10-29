@@ -25,7 +25,7 @@ const dancing = Dancing_Script({
 
 const titulo = `${site.nome} | Psicóloga em Araçatuba`;
 const descricao =
-  "Psicóloga clínica em Araçatuba/SP, CRP 06/149635. Terapia Cognitivo Comportamental (TCC) para adultos, presencial e online. Atende Apas. Marque pelo WhatsApp.";
+  "Psicóloga clínica em Araçatuba/SP, CRP 06/149635. Terapia Cognitivo Comportamental (TCC) para adultos, presencial e online. Atende APAS. Marque pelo WhatsApp.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

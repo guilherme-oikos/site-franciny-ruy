@@ -1,5 +1,5 @@
 import { site } from "@/site.config";
-import { sobre } from "@/conteudo";
+import { formacao, sobre } from "@/conteudo";
 import { TituloAnimado } from "./TituloAnimado";
 import { Etiqueta, Folha, Foto } from "./ui";
 
@@ -39,7 +39,7 @@ export function Sobre() {
           <Etiqueta>Sobre</Etiqueta>
           <TituloAnimado
             className="titulo-2 mt-5 max-w-[18ch]"
-            partes={[{ texto: "Sou a Franciny, " }, { texto: "psicóloga clínica em Araçatuba", leve: true }]}
+            partes={[{ texto: "Franciny Ruy" }]}
           />
         </div>
 
@@ -85,6 +85,41 @@ export function Sobre() {
             </li>
           ))}
         </ul>
+
+        {/* Formação (briefing 3.2): fica separada de "Quem você atende", que está nas Dúvidas */}
+        <div className="mx-auto mt-14 max-w-[980px] md:mt-16">
+          <h3 className="font-display text-[clamp(26px,2.6vw,32px)] leading-[1.15] font-bold tracking-[-0.02em]">
+            Formação
+          </h3>
+          <dl className="mt-6 border-t border-marrom/15">
+            {formacao.map((g) => (
+              <div
+                key={g.tipo}
+                className="grid gap-2 border-b border-marrom/15 py-5 md:grid-cols-[220px_1fr] md:gap-8 md:py-6"
+              >
+                <dt className="text-[14px] leading-6 font-semibold tracking-[0.08em] text-marrom-suave uppercase">
+                  {g.tipo}
+                </dt>
+                <dd>
+                  <ul className="space-y-1">
+                    {g.itens.map((i) => (
+                      <li
+                        key={i.nome}
+                        className={
+                          "destaque" in i && i.destaque
+                            ? "text-[20px] leading-8 font-semibold"
+                            : "text-[16px] leading-7 text-marrom-suave"
+                        }
+                      >
+                        {i.nome} <span className="font-normal text-marrom-suave">· {i.instituicao}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

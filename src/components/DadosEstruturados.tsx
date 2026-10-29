@@ -1,5 +1,5 @@
 import { site } from "@/site.config";
-import { duvidas } from "@/conteudo";
+import { duvidas, formacao } from "@/conteudo";
 
 // JSON-LD para Google e respostas de IA.
 // A schema.org não tem um tipo "Psicólogo". "Psychiatric" diria que ela é psiquiatra, então o
@@ -45,12 +45,14 @@ export function DadosEstruturados() {
           name: site.crp,
           recognizedBy: { "@type": "Organization", name: "Conselho Regional de Psicologia de São Paulo (CRP 06)" },
         },
-        {
-          "@type": "EducationalOccupationalCredential",
-          credentialCategory: "Pós-graduação",
-          name: "Pós-graduação em Terapia Cognitivo Comportamental",
-          recognizedBy: { "@type": "CollegeOrUniversity", name: "FAVENI Faculdade Venda Nova do Imigrante" },
-        },
+        ...formacao.flatMap((g) =>
+          g.itens.map((i) => ({
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: g.tipo,
+            name: i.nome,
+            recognizedBy: { "@type": "Organization", name: i.completa },
+          })),
+        ),
       ],
       knowsAbout: [
         "Terapia Cognitivo Comportamental",
@@ -69,7 +71,7 @@ export function DadosEstruturados() {
       "@id": id("consultorio"),
       additionalType: ["https://www.wikidata.org/wiki/Q212980", "https://www.wikidata.org/wiki/Q183257"],
       name: `${site.nome} Psicóloga`,
-      description: `Psicoterapia para adultos com Terapia Cognitivo Comportamental (TCC), presencial em Araçatuba/SP e online. Sessões com ${site.duracaoSessao}. Convênio: Apas; demais atendimentos particulares.`,
+      description: `Psicoterapia para adultos com Terapia Cognitivo Comportamental (TCC), presencial em Araçatuba/SP e online. Sessões com ${site.duracaoSessao}. Convênio: APAS; demais atendimentos particulares.`,
       url: site.url,
       image: `${site.url}/img/franciny-ruy-hero-960.webp`,
       telephone: site.telefoneE164,
@@ -83,8 +85,6 @@ export function DadosEstruturados() {
         {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: site.horario.dias.map((d) => `https://schema.org/${d}`),
-          opens: site.horario.abre,
-          closes: site.horario.fecha,
         },
       ],
       areaServed: [
@@ -103,7 +103,7 @@ export function DadosEstruturados() {
           description: `Sessão individual online para adultos, ${site.duracaoSessao}.`,
         },
       ],
-      paymentAccepted: "Particular, convênio Apas",
+      paymentAccepted: "Particular, convênio APAS",
       founder: { "@id": id("franciny") },
       employee: { "@id": id("franciny") },
       sameAs: [site.instagram.url, site.perfilGoogle],

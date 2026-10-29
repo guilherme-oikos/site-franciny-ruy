@@ -6,22 +6,52 @@ import { site } from "./site.config";
 
 // Faixa que desliza abaixo do hero. Rótulo solto não tem contexto: nada que soe como público
 // exclusivo ("40 anos ou mais") nem como terapia de casal ("Relacionamentos").
+// Cada tema vem do briefing (23/10/2026) ou do retorno dela (28/10/2026).
 export const temas = [
+  "Saúde da mulher",
+  "Jovens adultos",
   "Ansiedade",
   "Crises de ansiedade",
   "Padrões e crenças",
-  "Relações na família e no trabalho",
-  "Saúde da mulher",
   "Transtornos afetivos",
+  "Transtornos de personalidade",
+  "Relações na família e no trabalho",
+  "Adultos e idosos",
+  "TCC",
   "Online",
+];
+
+// Formação, do briefing (3.2) e do retorno dela (graduação). Sem ano: ela não informou.
+// `completa` só vai para os dados estruturados e para o llms.txt.
+export const formacao = [
+  {
+    tipo: "Graduação",
+    itens: [{ nome: "Psicologia", instituicao: "Fundação Educacional Araçatuba, FAC FEA", completa: "Fundação Educacional Araçatuba (FAC FEA)" }],
+  },
+  {
+    tipo: "Pós-graduação",
+    itens: [
+      { nome: "Terapia Cognitivo Comportamental (TCC)", instituicao: "FAVENI", completa: "FAVENI Faculdade Venda Nova do Imigrante", destaque: true },
+      { nome: "Psicologia do Trânsito", instituicao: "FAMEESP", completa: "FAMEESP Faculdade Metropolitana do Estado de São Paulo" },
+    ],
+  },
+  {
+    tipo: "Cursos e capacitações",
+    itens: [
+      { nome: "Curso de formação em Psicologia do Esporte", instituicao: "CEPPE", completa: "CEPPE Consultoria, Estudo e Pesquisa da Psicologia do Esporte" },
+      { nome: "Capacitação em Libras", instituicao: "FAVENI", completa: "FAVENI Faculdade Venda Nova do Imigrante" },
+      { nome: "Capacitação em ABA, Análise do Comportamento Aplicada", instituicao: "FAVENI", completa: "FAVENI Faculdade Venda Nova do Imigrante" },
+      { nome: "Capacitação em Dependência Química e Qualidade de Vida", instituicao: "FAVENI", completa: "FAVENI Faculdade Venda Nova do Imigrante" },
+    ],
+  },
 ];
 
 // RASCUNHO: texto do "Sobre" para a Franciny revisar.
 export const sobre = [
-  `Sou a Franciny, psicóloga clínica desde ${site.desde}. Atendo adultos em Araçatuba, no consultório e online, com a Terapia Cognitivo Comportamental, a TCC.`,
-  "Gosto de explicar como as coisas funcionam: por que a ansiedade vai crescendo até virar crise, como um pensamento aparece no comportamento, de onde vêm as regras que a gente segue sem perceber. Quando a pessoa enxerga o próprio padrão, a conversa muda, porque passa a ter algo concreto para trabalhar.",
-  "Na sessão, a conversa é direta e sem julgamento. Ninguém chega sabendo o que dizer, e não é preciso estar “muito mal” para começar.",
-  "Tenho um carinho especial por dois públicos. Pessoas de 40, 50 anos ou mais, que carregam crenças e regras de uma vida inteira e querem olhar para elas de outro jeito, pensando nos anos que ainda vêm. E mulheres, porque saúde feminina e saúde mental andam juntas e merecem ser conversadas juntas.",
+  `Sou a Franciny, psicóloga clínica desde ${site.desde}, formada pela Fundação Educacional Araçatuba (FAC FEA). Seguindo a abordagem da Terapia Cognitivo-Comportamental (TCC), atendo adultos acima de 18 anos, tanto online quanto presencial, com consultório em Araçatuba/SP.`,
+  "Na minha atuação, gosto de explicar como as coisas funcionam: quando a pessoa me traz o que ela está sentindo naquele momento, eu busco explicar como o sentimento surge a partir de um pensamento, e como isso pode gerar um comportamento. Sem perceber, nós seguimos regras e padrões, e quando identificamos isso, a conversa muda e passa a fluir, pois agora existe algo concreto a se trabalhar.",
+  "Quero que você saia de cada sessão entendendo um pouco mais de si. Explico o que está acontecendo, a gente conversa sobre o que fazer com isso e vai acompanhando, ao longo das sessões, o que muda no seu dia a dia.",
+  "Uma curiosidade sobre mim dentro da minha atuação é que eu tenho um carinho especial por pessoas com idade acima de 40 anos, pois justamente essas pessoas carregam crenças e regras por uma vida toda, e podem conseguir olhar para elas de outro jeito, modificando todos os anos que ainda virão. Além desse público, gosto de lidar com mulheres, pois a saúde feminina e a saúde mental andam juntas e merecem ser conversadas juntas.",
 ];
 
 // RASCUNHO: respostas aos mitos para a Franciny revisar.
@@ -94,11 +124,11 @@ export const termosTecnicos = [
 // "Quem você atende?" das Dúvidas), mas continuam no llms.txt, para que respostas de IA
 // não indiquem a Franciny para o que ela não atende.
 export const atendo = [
-  { item: "Adultos, a partir de 18 anos" },
-  { item: "Ansiedade e crises de ansiedade", nota: "na vida pessoal, no trabalho e na família" },
+  { item: "Jovens adultos (acima de 18 anos), adultos e idosos" },
+  { item: "Ansiedade e crises de ansiedade", nota: "na vida pessoal, no trabalho e na família, inclusive TOC e TAG" },
   { item: "Relacionamentos" },
-  { item: "Transtornos afetivos", nota: "os que mexem com o humor, como a depressão" },
-  { item: "Transtornos de personalidade", nota: "jeitos de pensar e de se relacionar que se repetem há muito tempo" },
+  { item: "Transtornos afetivos", nota: "os que mexem com o humor, como o transtorno afetivo bipolar e a depressão" },
+  { item: "Transtornos de personalidade", nota: "como o transtorno de personalidade limítrofe (Borderline)" },
   { item: "Padrões de pensamento e crenças" },
   { item: "Mulheres e saúde feminina" },
   { item: "Pessoas de 40, 50 anos ou mais" },
@@ -144,9 +174,9 @@ export const duvidas: { pergunta: string; resposta: string[] }[] = [
     ],
   },
   {
-    pergunta: "Você atende pelo Apas?",
+    pergunta: "Você atende pelo APAS?",
     resposta: [
-      "Sim. O Apas é o único convênio que eu atendo, e os demais atendimentos são particulares. Se você tem Apas, me conte isso logo na primeira mensagem pelo WhatsApp, para a gente já combinar como fica o atendimento pelo seu plano antes de marcar a primeira sessão.",
+      "Sim. O APAS é o único convênio que eu atendo, e os demais atendimentos são particulares. Se você tem APAS, me conte isso logo na primeira mensagem pelo WhatsApp, para a gente já combinar como fica o atendimento pelo seu plano antes de marcar a primeira sessão.",
     ],
   },
   {
@@ -165,7 +195,8 @@ export const duvidas: { pergunta: string; resposta: string[] }[] = [
   {
     pergunta: "Quem você atende?",
     resposta: [
-      "Eu atendo adultos, a partir de 18 anos, com ansiedade, crises de ansiedade, questões de relacionamento e transtornos afetivos e de personalidade. Gosto muito de atender mulheres e pessoas de 40 anos ou mais. Não atendo crianças e adolescentes, dependência química nem transtornos mentais graves, e terapia de casal hoje não é o meu foco.",
+      "Meu público envolve jovens adultos (acima de 18 anos), adultos e idosos. Tenho experiência no atendimento de transtornos de humor (por exemplo, TAB, o transtorno afetivo bipolar, e depressão e seus níveis), de personalidade (por exemplo, o transtorno de personalidade limítrofe, o Borderline) e de ansiedade (por exemplo, TOC, o transtorno obsessivo compulsivo, e TAG, o transtorno de ansiedade generalizada).",
+      "Não atendo crianças e adolescentes, dependência química ou transtornos mentais graves, e terapia de casal hoje não é o meu foco atual.",
     ],
   },
 ];

@@ -1,5 +1,5 @@
 import { site } from "@/site.config";
-import { atendo, duvidas, naoAtendo } from "@/conteudo";
+import { atendo, duvidas, formacao, naoAtendo } from "@/conteudo";
 
 // llms.txt: resumo factual do site para assistentes de IA (convenção nova, tratada como extra).
 // Gerado a partir dos mesmos dados do site, então não precisa ser atualizado à parte.
@@ -15,7 +15,7 @@ export function GET() {
 - Profissão: Psicóloga clínica
 - Registro: ${site.crp}
 - Abordagem: ${site.abordagem}
-- Formação: ${site.posGraduacao}
+${formacao.map((g) => `- ${g.tipo}: ${g.itens.map((i) => `${i.nome} (${i.completa})`).join("; ")}`).join("\n")}
 - Atua desde: ${site.desde}
 - Modalidade: presencial e online
 - Endereço do consultório: ${site.enderecoCompleto}

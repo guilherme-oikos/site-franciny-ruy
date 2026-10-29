@@ -161,14 +161,29 @@ body {
   display: flex;
   width: max-content;
 }
-/* Desliza devagar e para no hover. Com movimento reduzido fica parada.
-   (o botão de pausa saiu a pedido da OIKOS em 26/10/2026) */
+/* Desliza devagar, sem pausa (a pausa no hover saiu a pedido dela em 28/10/2026).
+   110s para 11 temas mantém a velocidade de antes (70s para 7). */
 @media (prefers-reduced-motion: no-preference) {
   .trilho {
-    animation: desliza 70s linear infinite;
+    animation: desliza 110s linear infinite;
   }
-  .faixa-arcos:hover .trilho {
-    animation-play-state: paused;
+}
+/* Movimento reduzido no sistema: a faixa fica parada, com os temas quebrando em linhas
+   (sem palavra cortada na borda) e só a primeira lista, que é a lida pelo leitor de tela. */
+@media (prefers-reduced-motion: reduce) {
+  .trilho {
+    width: auto;
+    white-space: normal;
+    justify-content: center;
+    padding-inline: 1rem;
+  }
+  .trilho > ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.15em;
+  }
+  .trilho > ul[aria-hidden] {
+    display: none;
   }
 }
 @keyframes desliza {

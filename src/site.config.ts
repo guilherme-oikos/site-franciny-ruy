@@ -45,15 +45,13 @@ export const site = {
   // Se conseguir o link longo do Maps (maps.google.com/?cid=...), ele é melhor para o sameAs.
   perfilGoogle: "https://share.google/aKUHhOAUVhJOFzO75",
 
-  // PENDENTE: horário provisório, confirmar com ela.
+  // Ela pediu só os dias (28/10/2026): sem horário de abertura e fechamento, nem aqui nem no JSON-LD.
   horario: {
-    texto: "Segunda a sexta, das 08h às 18h",
+    texto: "Segunda a sexta",
     dias: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    abre: "08:00",
-    fecha: "18:00",
   },
 
-  convenio: "Apas",
+  convenio: "APAS",
 } as const;
 
 export function linkWhatsApp(mensagem = "Olá, Franciny. Vim pelo site e gostaria de marcar uma conversa.") {
