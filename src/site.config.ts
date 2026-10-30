@@ -2,8 +2,8 @@
 // (textos, links do WhatsApp, JSON-LD, sitemap, robots e Open Graph).
 
 export const site = {
-  // PENDENTE: domínio ainda não registrado. Troque aqui quando ela escolher (sem barra no fim).
-  url: "https://www.francinyruy.com.br",
+  // Domínio de produção (sem barra no fim). Sempre com www: o domínio sem www redireciona para ele na Vercel.
+  url: "https://www.psifrancinyruy.com.br",
 
   nome: "Franciny Ruy",
   profissao: "Psicóloga",
