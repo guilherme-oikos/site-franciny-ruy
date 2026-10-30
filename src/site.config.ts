@@ -24,9 +24,8 @@ export const site = {
   },
   enderecoCompleto: "Rua Ipiranga, 337, Jardim Nova Yorque, Araçatuba/SP",
 
-  // PENDENTE: coordenadas do pin do Perfil da Empresa no Google. O link curto pede captcha
-  // para ser lido por robô, então não consegui conferir. Preencha com o pin real (não estime).
-  geo: null as null | { lat: number; lng: number },
+  // Coordenadas do pin do Perfil da Empresa no Google, copiadas do Google Maps em 30/10/2026.
+  geo: { lat: -21.22719877189457, lng: -50.4332975556823 } as null | { lat: number; lng: number },
 
   whatsapp: {
     // PENDENTE: confirmar se este continua sendo o número caso ela abra o WhatsApp Business.
