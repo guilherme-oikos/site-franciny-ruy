@@ -20,8 +20,7 @@ export const site = {
     cidade: "Araçatuba",
     uf: "SP",
     pais: "BR",
-    // PENDENTE: CEP não informado. Preencha para o JSON-LD (formato 00000-000).
-    cep: "",
+    cep: "16018-305",
   },
   enderecoCompleto: "Rua Ipiranga, 337, Jardim Nova Yorque, Araçatuba/SP",
 
