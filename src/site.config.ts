@@ -28,11 +28,11 @@ export const site = {
   geo: { lat: -21.22719877189457, lng: -50.4332975556823 } as null | { lat: number; lng: number },
 
   whatsapp: {
-    // PENDENTE: confirmar se este continua sendo o número caso ela abra o WhatsApp Business.
-    numero: "5518996372616",
-    exibicao: "(18) 99637-2616",
+    // Número do WhatsApp Business da Franciny (confirmado em 02/11/2026).
+    numero: "5518996190121",
+    exibicao: "(18) 99619-0121",
   },
-  telefoneE164: "+55-18-99637-2616",
+  telefoneE164: "+55-18-99619-0121",
   email: "franciny_ruy@hotmail.com",
   instagram: {
     usuario: "@psi.francinyruy",
